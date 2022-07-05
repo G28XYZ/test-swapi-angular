@@ -1,3 +1,19 @@
-<main>
+<main class="content">
   <app-preloader *ngIf="request"></app-preloader>
+  <section *ngIf="planets.length !== 0" class="planet">
+    <ul class="planet__list">
+      <li
+        *ngFor="let planet of planets; let i = index"
+        class="planet__list-item"
+      >
+        <h2 class="planet__title">{{ planet.name }}</h2>
+        <p class="planet__info">Население: {{ planet.population }}</p>
+        <p class="planet__info">Диаметр: {{ planet.diameter }} км</p>
+        <p class="planet__info">Климат: {{ planet.climate }}</p>
+        <p class="planet__info">
+          Период вращения: {{ planet.rotation_period }}
+        </p>
+      </li>
+    </ul>
+  </section>
 </main>
