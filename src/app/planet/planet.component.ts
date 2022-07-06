@@ -13,9 +13,10 @@ export class PlanetComponent {
   planets: IPlanet[];
   planet: IPlanet | undefined;
   persons: IPerson[] | undefined;
-  filteredPerson: IPerson[] | undefined;
+  filteredPersons: IPerson[] | undefined;
   request: boolean = true;
   gender: string = 'all';
+  count: number = 4;
 
   constructor(
     private activateRoute: ActivatedRoute,
@@ -50,7 +51,7 @@ export class PlanetComponent {
             eye_color,
           })
         );
-        this.filteredPerson = this.persons;
+        this.filteredPersons = this.persons;
         console.log(this.persons);
       })
       .catch((err) => console.log(err))
@@ -60,11 +61,15 @@ export class PlanetComponent {
   handleChangeGender(gender: string) {
     this.gender = gender;
     if (gender === 'all') {
-      this.filteredPerson = this.persons;
+      this.filteredPersons = this.persons;
       return;
     }
-    this.filteredPerson = this.persons?.filter(
+    this.filteredPersons = this.persons?.filter(
       (person) => person.gender === gender
     );
+  }
+
+  handleClickMoreCount() {
+    this.count += 2;
   }
 }

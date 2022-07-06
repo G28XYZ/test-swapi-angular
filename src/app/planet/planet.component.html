@@ -3,33 +3,45 @@
   <h2 class="planet-details__title title">Планета - {{ planet?.name }}</h2>
   <div class="planet-details__info">
     <div class="planet-details__planet">
-      <p class="planet-details__planet-title">Информация о планете</p>
+      <p class="planet-details__planet-title text">Информация о планете</p>
       <ul class="planet-details__list text">
-        <li class="planet-details__list-item">
+        <li
+          class="planet-details__list-item planet-details__list-item_type_planet"
+        >
           <span> Население: </span>
           <span>
             {{ planet?.population }}
           </span>
         </li>
-        <li class="planet-details__list-item">
+        <li
+          class="planet-details__list-item planet-details__list-item_type_planet"
+        >
           <span> Диаметр: </span>
           <span> {{ planet?.diameter }} км </span>
         </li>
-        <li class="planet-details__list-item">
+        <li
+          class="planet-details__list-item planet-details__list-item_type_planet"
+        >
           <span> Климат: </span>
           <span>
             {{ planet?.climate }}
           </span>
         </li>
-        <li class="planet-details__list-item">
+        <li
+          class="planet-details__list-item planet-details__list-item_type_planet"
+        >
           <span> Ландшафт: </span>
           <span> {{ planet?.terrain }}</span>
         </li>
-        <li class="planet-details__list-item">
+        <li
+          class="planet-details__list-item planet-details__list-item_type_planet"
+        >
           <span> Период вращения по орбите: </span>
           <span> {{ planet?.orbital_period }} д </span>
         </li>
-        <li class="planet-details__list-item">
+        <li
+          class="planet-details__list-item planet-details__list-item_type_planet"
+        >
           <span> Период вращения планеты: </span>
           <span> {{ planet?.rotation_period }} ч </span>
         </li>
@@ -80,18 +92,32 @@
           </div>
         </div>
         <ul class="planet-details__list planet-details__list-person">
-          <li *ngFor="let person of filteredPerson; let i = index" class="card">
+          <li
+            *ngFor="
+              let person of filteredPersons?.slice(0, count);
+              let i = index
+            "
+            class="card"
+          >
             <h3 class="title">{{ person.name }}</h3>
             <p class="text">Пол: {{ person.gender }}</p>
             <p class="text">Рост: {{ person.height }}</p>
             <p class="text">Вес: {{ person.mass }}</p>
             <p class="text">Цвет глаз: {{ person.eye_color }}</p>
-            <p class="text">Вес цвет волос: {{ person.hair_color }}</p>
+            <p class="text">Цвет волос: {{ person.hair_color }}</p>
           </li>
         </ul>
-        <p *ngIf="filteredPerson && filteredPerson.length === 0">
+        <p *ngIf="filteredPersons && filteredPersons.length === 0">
           Ничего не найдено
         </p>
+        <button
+          *ngIf="filteredPersons && filteredPersons.length > count"
+          type="button"
+          (click)="handleClickMoreCount()"
+          class="planet-details__button"
+        >
+          Ещё
+        </button>
       </div>
     </div>
   </div>
