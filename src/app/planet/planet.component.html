@@ -37,19 +37,48 @@
     </div>
     <div class="planet-details__persons">
       <app-preloader *ngIf="request"></app-preloader>
-      <p
-        *ngIf="
-          (filteredPerson === undefined || filteredPerson.length === 0) &&
-          request === false
-        "
-      >
+      <p *ngIf="persons?.length === 0 && request === false">
         На планете нет ключевых персонажей
       </p>
       <div
-        *ngIf="filteredPerson && filteredPerson.length"
+        *ngIf="persons && persons.length"
         class="planet-details__persons-container"
       >
-        <input type="text" name="" id="" />
+        <div class="planet-details__inputs">
+          <div>
+            <input
+              type="radio"
+              id="all"
+              name="gender"
+              value="all"
+              (change)="handleChangeGender('all')"
+              [checked]="gender === 'all'"
+            />
+            <label for="all">All</label>
+          </div>
+          <div>
+            <input
+              type="radio"
+              id="male"
+              name="gender"
+              value="male"
+              (change)="handleChangeGender('male')"
+              [checked]="gender === 'male'"
+            />
+            <label for="male">Male</label>
+          </div>
+          <div>
+            <input
+              type="radio"
+              id="female"
+              name="gender"
+              value="female"
+              (change)="handleChangeGender('female')"
+              [checked]="gender === 'female'"
+            />
+            <label for="female">Female</label>
+          </div>
+        </div>
         <ul class="planet-details__list planet-details__list-person">
           <li *ngFor="let person of filteredPerson; let i = index" class="card">
             <h3 class="title">{{ person.name }}</h3>
@@ -60,6 +89,9 @@
             <p class="text">Вес цвет волос: {{ person.hair_color }}</p>
           </li>
         </ul>
+        <p *ngIf="filteredPerson && filteredPerson.length === 0">
+          Ничего не найдено
+        </p>
       </div>
     </div>
   </div>

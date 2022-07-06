@@ -15,6 +15,7 @@ export class PlanetComponent {
   persons: IPerson[] | undefined;
   filteredPerson: IPerson[] | undefined;
   request: boolean = true;
+  gender: string = 'all';
 
   constructor(
     private activateRoute: ActivatedRoute,
@@ -56,7 +57,12 @@ export class PlanetComponent {
       .finally(() => (this.request = false));
   }
 
-  handleFilterGender(gender: string) {
+  handleChangeGender(gender: string) {
+    this.gender = gender;
+    if (gender === 'all') {
+      this.filteredPerson = this.persons;
+      return;
+    }
     this.filteredPerson = this.persons?.filter(
       (person) => person.gender === gender
     );

@@ -6,6 +6,21 @@
   margin: 0 auto;
   padding: 50px;
   box-sizing: border-box;
+  &__inputs {
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    padding: 20px 0;
+    div {
+      label {
+        cursor: pointer;
+        padding-left: 10px;
+      }
+      input {
+        cursor: pointer;
+      }
+    }
+  }
   &__planet {
     width: 50%;
     &-title {
