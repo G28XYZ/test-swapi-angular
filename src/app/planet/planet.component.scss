@@ -61,6 +61,7 @@
       grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
       width: 100%;
       justify-items: center;
+      padding-top: 20px;
     }
     &-item {
       display: flex;
@@ -92,6 +93,9 @@
     &:hover {
       transform: scale(1.05);
     }
+  }
+  &__notfound {
+    text-align: center;
   }
 }
 

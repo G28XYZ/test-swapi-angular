@@ -22,7 +22,6 @@ export class MainComponent implements OnInit {
           this.appServices.setPlanets(results);
           this._setRequest();
           this._setPlanets();
-          console.log(results);
         })
         .catch((err) => console.log(err))
         .finally(() => this.appServices.setRequest(false));

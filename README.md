@@ -1,27 +1,28 @@
-# TestSwapiAngular
+# Проект SWAPI planets (тестовое задание)
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.0.4.
+### Краткое описание:
 
-## Development server
+Проект в котором при открытии отображаются карточки с названием планеты. При клике на карточку, отображается страница с данными об этой планете, и проживающие на ней персонажи. Так же на странице можно отфильтровать список обитающих персонажей по полу персонажа.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## Demo:
 
-## Code scaffolding
+<img src="https://github.com/G28XYZ/G28XYZ/blob/main/images/demo-swapi-planet.gif" alt="swapi planets demo" />
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Ссылка - [SWAPI planets]()
 
-## Build
+## О проекте и технологиях разработки
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+В разработке проекта использовались следующие веб-технологии:
 
-## Running unit tests
+### Front-end
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+<ul>
+  <li>Flexbox</li>
+  <li>Grid</li>
+  <li>Адаптивная вёрстка</li>
+  <li>БЭМ</li>
+  <li>JavaScript <img style="width: 3%" src="https://github.com/github/explore/blob/main/topics/javascript/javascript.png" alt="JavaScript">
+  </li>
+    <li>Angular <img style="width: 3%" src="https://github.com/github/explore/blob/main/topics/angular/angular.png" alt="Angular"></li>
+    <li>API</li>
+</ul>

@@ -26,7 +26,6 @@ export class PlanetComponent {
     this.planet_id = this.activateRoute.snapshot.params['id'];
     this.planets = this.appService.state.planets;
     this.planet = this.planets.find((planet) => planet.id === this.planet_id);
-    console.log(this.planet);
   }
 
   ngOnInit(): void {
@@ -52,7 +51,6 @@ export class PlanetComponent {
           })
         );
         this.filteredPersons = this.persons;
-        console.log(this.persons);
       })
       .catch((err) => console.log(err))
       .finally(() => (this.request = false));
