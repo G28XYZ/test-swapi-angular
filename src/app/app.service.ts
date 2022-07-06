@@ -1,26 +1,13 @@
 import { Injectable } from '@angular/core';
 import api from 'src/utils/api';
+import { IPlanet, IState } from 'src/utils/types';
+import { generate } from 'shortid';
 
-export interface IPlanets {
-  name: string;
-  diameter: string;
-  orbital_period: string;
-  rotation_period: string;
-  climate: string;
-  population: string;
-}
-
-export interface IState {
-  planets: [] | IPlanets[];
-  request: boolean;
-}
 @Injectable({
   providedIn: 'root',
 })
 export class AppService {
-  constructor() {
-    console.log('This is app Service Constructor!!!');
-  }
+  constructor() {}
 
   state: IState = {
     request: true,
@@ -31,8 +18,11 @@ export class AppService {
     return api.getAllPlanets();
   }
 
-  setPlanets(planets: IPlanets[]) {
-    this.state.planets = planets;
+  setPlanets(planets: IPlanet[]) {
+    this.state.planets = planets.map((planet) => {
+      planet.id = generate();
+      return planet;
+    });
   }
 
   setRequest(bool: boolean) {

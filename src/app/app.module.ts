@@ -6,9 +6,16 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { MainComponent } from './main/main.component';
 import { PreloaderComponent } from './preloader/preloader.component';
+import { NotFoundComponent } from './not-found/not-found.component';
 
 @NgModule({
-  declarations: [AppComponent, HeaderComponent, MainComponent, PreloaderComponent],
+  declarations: [
+    AppComponent,
+    MainComponent,
+    PreloaderComponent,
+    HeaderComponent,
+    NotFoundComponent,
+  ],
   imports: [BrowserModule, AppRoutingModule],
   providers: [],
   bootstrap: [AppComponent],

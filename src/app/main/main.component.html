@@ -12,6 +12,7 @@
         <p class="planet__info">Климат: {{ planet.climate }}</p>
         <p class="planet__info">
           Период вращения: {{ planet.rotation_period }}
+          {{ formatMeasurementTime(planet.rotation_period) }}
         </p>
       </li>
     </ul>
