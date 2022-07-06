@@ -20,11 +20,13 @@ export class MainComponent implements OnInit {
         .getAllPlanets()
         .then(({ results }) => {
           this.appServices.setPlanets(results);
-          this._setRequest();
           this._setPlanets();
         })
         .catch((err) => console.log(err))
-        .finally(() => this.appServices.setRequest(false));
+        .finally(() => {
+          this.appServices.setRequest(false);
+          this._setRequest();
+        });
     }
   }
 

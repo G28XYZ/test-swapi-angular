@@ -8,7 +8,7 @@
 
 <img src="https://github.com/G28XYZ/G28XYZ/blob/main/images/demo-swapi-planet.gif" alt="swapi planets demo" />
 
-Ссылка - [SWAPI planets]()
+Ссылка - [SWAPI planets](https://g28xyz.github.io/test-swapi-angular/)
 
 ## О проекте и технологиях разработки
 
@@ -26,3 +26,21 @@
     <li>Angular <img style="width: 3%" src="https://github.com/github/explore/blob/main/topics/angular/angular.png" alt="Angular"></li>
     <li>API</li>
 </ul>
+
+## Установка
+
+#### Клонируйте репозиторий:
+
+`git clone https://github.com/G28XYZ/test-swapi-angular.git`
+
+#### Перейдите в папку клонированного репозитория
+
+`cd test-swapi-angular`
+
+#### Установите npm зависимости из package.json:
+
+`npm i`
+
+#### Запустите приложение:
+
+`npm run start`
