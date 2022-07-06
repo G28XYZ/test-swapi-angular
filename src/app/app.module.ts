@@ -7,6 +7,7 @@ import { HeaderComponent } from './header/header.component';
 import { MainComponent } from './main/main.component';
 import { PreloaderComponent } from './preloader/preloader.component';
 import { NotFoundComponent } from './not-found/not-found.component';
+import { PlanetComponent } from './planet/planet.component';
 
 @NgModule({
   declarations: [
@@ -14,6 +15,7 @@ import { NotFoundComponent } from './not-found/not-found.component';
     MainComponent,
     PreloaderComponent,
     HeaderComponent,
+    PlanetComponent,
     NotFoundComponent,
   ],
   imports: [BrowserModule, AppRoutingModule],

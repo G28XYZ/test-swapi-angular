@@ -1,8 +1,12 @@
 .header {
   width: 100%;
-  padding: 2%;
+  padding-top: 30px;
+  padding-bottom: 30px;
   background-color: #1c1e22;
-  color: #ffe300;
   text-align: center;
   box-sizing: border-box;
+}
+
+.header__title {
+  font-size: 30px;
 }

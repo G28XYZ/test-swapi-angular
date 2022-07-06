@@ -16,6 +16,10 @@ class Api {
   getAllPlanets() {
     return fetch(`${this._address}/planets/`).then(this._handleResponse);
   }
+
+  getPerson(personAddress: string) {
+    return fetch(personAddress).then(this._handleResponse);
+  }
 }
 
 const api = new Api(swapiAddress);

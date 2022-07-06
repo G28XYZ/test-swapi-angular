@@ -4,16 +4,18 @@
     <ul class="planet__list">
       <li
         *ngFor="let planet of planets; let i = index"
-        class="planet__list-item"
+        class="planet__list-item card"
+        data-title="Кликните чтобы узнать подробнее"
       >
-        <h2 class="planet__title">{{ planet.name }}</h2>
-        <p class="planet__info">Население: {{ planet.population }}</p>
-        <p class="planet__info">Диаметр: {{ planet.diameter }} км</p>
-        <p class="planet__info">Климат: {{ planet.climate }}</p>
-        <p class="planet__info">
-          Период вращения: {{ planet.rotation_period }}
-          {{ formatMeasurementTime(planet.rotation_period) }}
-        </p>
+        <a [routerLink]="['/planet/', planet.id]" class="planet__link">
+          <h2 class="planet__title title">{{ planet.name }}</h2>
+          <p class="planet__info">Население: {{ planet.population }}</p>
+          <p class="planet__info">Диаметр: {{ planet.diameter }} км</p>
+          <p class="planet__info">Климат: {{ planet.climate }}</p>
+          <p class="planet__info">
+            Период вращения: {{ planet.rotation_period }} ч
+          </p>
+        </a>
       </li>
     </ul>
   </section>

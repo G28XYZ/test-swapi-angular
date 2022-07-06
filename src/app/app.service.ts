@@ -23,13 +23,14 @@ export class AppService {
       planet.id = generate();
       return planet;
     });
+    localStorage.setItem('planets', JSON.stringify(this.state.planets));
   }
 
   setRequest(bool: boolean) {
     this.state.request = bool;
   }
 
-  testMethod(): string {
-    return 'returning string';
+  getPerson(personAddress: string) {
+    return api.getPerson(personAddress);
   }
 }

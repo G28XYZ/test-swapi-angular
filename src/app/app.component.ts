@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AppService } from './app.service';
 
 @Component({
   selector: 'app-root',
@@ -8,9 +9,14 @@ import { Component } from '@angular/core';
 export class AppComponent {
   title = 'test-swapi-angular';
 
-  constructor() {}
+  constructor(private appService: AppService) {}
 
   ngOnInit() {
+    const storage = localStorage.getItem('planets');
+    if (storage) {
+      this.appService.state.request = false;
+      this.appService.state.planets = JSON.parse(storage);
+    }
     console.log('render app');
   }
 }
