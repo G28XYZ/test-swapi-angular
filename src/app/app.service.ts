@@ -78,6 +78,9 @@ export class AppService {
 
   setStateFromStorage(state: IState) {
     this.state$.pipe(take(1)).subscribe(() => {
+      if (state.planets.length !== 0) {
+        state.request = false;
+      }
       this.state.next(state);
     });
   }
