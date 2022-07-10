@@ -6,21 +6,6 @@
   margin: 0 auto;
   padding: 50px;
   box-sizing: border-box;
-  &__inputs {
-    width: 100%;
-    display: flex;
-    justify-content: space-evenly;
-    padding: 20px 0;
-    div {
-      label {
-        cursor: pointer;
-        padding-left: 10px;
-      }
-      input {
-        cursor: pointer;
-      }
-    }
-  }
   &__planet {
     width: 50%;
     border: 1px solid black;
@@ -62,20 +47,6 @@
       width: 100%;
       justify-items: center;
       padding-top: 20px;
-    }
-    &-item {
-      display: flex;
-      justify-content: space-between;
-      width: 100%;
-      flex-wrap: wrap;
-      &_type {
-        &_planet {
-          border-bottom: 1px solid rgba(0, 0, 0, 0.5);
-          span {
-            padding-bottom: 5px;
-          }
-        }
-      }
     }
   }
   &__title {

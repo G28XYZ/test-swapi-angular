@@ -1,104 +1,40 @@
 <section class="planet-details">
   <a routerLink="/main" class="link">Назад</a>
-  <h2 class="planet-details__title title">Планета - {{ planet?.name }}</h2>
+  <h2 class="planet-details__title title">
+    Планета - {{ (state$ | async)?.planet?.name }}
+  </h2>
   <div class="planet-details__info">
     <div class="planet-details__planet">
       <p class="planet-details__planet-title text">Информация о планете</p>
-      <ul class="planet-details__list text">
-        <li
-          class="planet-details__list-item planet-details__list-item_type_planet"
-        >
-          <span> Население: </span>
-          <span>
-            {{ planet?.population }}
-          </span>
-        </li>
-        <li
-          class="planet-details__list-item planet-details__list-item_type_planet"
-        >
-          <span> Диаметр: </span>
-          <span> {{ planet?.diameter }} км </span>
-        </li>
-        <li
-          class="planet-details__list-item planet-details__list-item_type_planet"
-        >
-          <span> Климат: </span>
-          <span>
-            {{ planet?.climate }}
-          </span>
-        </li>
-        <li
-          class="planet-details__list-item planet-details__list-item_type_planet"
-        >
-          <span> Ландшафт: </span>
-          <span> {{ planet?.terrain }}</span>
-        </li>
-        <li
-          class="planet-details__list-item planet-details__list-item_type_planet"
-        >
-          <span> Период вращения по орбите: </span>
-          <span> {{ planet?.orbital_period }} д </span>
-        </li>
-        <li
-          class="planet-details__list-item planet-details__list-item_type_planet"
-        >
-          <span> Период вращения планеты: </span>
-          <span> {{ planet?.rotation_period }} ч </span>
-        </li>
-      </ul>
+      <app-planet-info [planet]="(state$ | async)?.planet"></app-planet-info>
     </div>
     <div class="planet-details__persons">
-      <app-preloader *ngIf="request"></app-preloader>
+      <app-preloader *ngIf="(state$ | async)?.request"></app-preloader>
       <p
-        *ngIf="persons?.length === 0 && request === false"
+        *ngIf="
+          (state$ | async)?.persons?.length === 0 &&
+          (state$ | async)?.request === false
+        "
         class="planet-details__notfound text"
       >
         На планете нет ключевых персонажей
       </p>
       <div
-        *ngIf="persons && persons.length"
+        *ngIf="(state$ | async)?.persons && (state$ | async)?.persons?.length"
         class="planet-details__persons-container"
       >
-        <div class="planet-details__inputs">
-          <div>
-            <input
-              type="radio"
-              id="all"
-              name="gender"
-              value="all"
-              (change)="handleChangeGender('all')"
-              [checked]="gender === 'all'"
-            />
-            <label for="all">All</label>
-          </div>
-          <div>
-            <input
-              type="radio"
-              id="male"
-              name="gender"
-              value="male"
-              (change)="handleChangeGender('male')"
-              [checked]="gender === 'male'"
-            />
-            <label for="male">Male</label>
-          </div>
-          <div>
-            <input
-              type="radio"
-              id="female"
-              name="gender"
-              value="female"
-              (change)="handleChangeGender('female')"
-              [checked]="gender === 'female'"
-            />
-            <label for="female">Female</label>
-          </div>
-        </div>
+        <app-input-radio
+          (handleChangeGender)="handleChangeGender($event)"
+          [gender]="(state$ | async)?.gender || 'all'"
+        ></app-input-radio>
         <h2 class="text" style="font-size: 24px">Персонажи</h2>
         <ul class="planet-details__list planet-details__list-person">
           <li
             *ngFor="
-              let person of filteredPersons?.slice(0, count);
+              let person of (state$ | async)?.filteredPersons?.slice(
+                0,
+                (state$ | async)?.countPerson
+              );
               let i = index
             "
             class="card"
@@ -111,11 +47,16 @@
             <p class="text">Цвет волос: {{ person.hair_color }}</p>
           </li>
         </ul>
-        <p *ngIf="filteredPersons && filteredPersons.length === 0">
+        <p
+          *ngIf="
+            (state$ | async)?.filteredPersons &&
+            (state$ | async)?.filteredPersons?.length === 0
+          "
+        >
           Ничего не найдено
         </p>
         <button
-          *ngIf="filteredPersons && filteredPersons.length > count"
+          *ngIf="(state$ | async)?.showMorePersons"
           type="button"
           (click)="handleClickMoreCount()"
           class="planet-details__button"

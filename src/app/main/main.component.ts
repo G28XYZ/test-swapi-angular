@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { IPlanet } from 'src/utils/types';
+import { interval, Observable, take } from 'rxjs';
+import { IPlanet, IState } from 'src/utils/types';
 import { AppService } from '../app.service';
 
 @Component({
@@ -8,33 +9,40 @@ import { AppService } from '../app.service';
   styleUrls: ['./main.component.scss'],
 })
 export class MainComponent implements OnInit {
-  request: boolean = this.appServices.state.request;
-  planets: IPlanet[] | [] = this.appServices.state.planets;
+  state$: Observable<IState>;
+  nextPlanetPage: boolean = true;
 
-  constructor(private appServices: AppService) {}
+  constructor(private appService: AppService) {
+    this.state$ = this.appService.state;
+  }
 
   ngOnInit(): void {
-    if (this.planets.length === 0) {
-      this.appServices.setRequest(true);
-      this.appServices
-        .getAllPlanets()
-        .then(({ results }) => {
-          this.appServices.setPlanets(results);
-          this._setPlanets();
-        })
-        .catch((err) => console.log(err))
-        .finally(() => {
-          this.appServices.setRequest(false);
-          this._setRequest();
+    this.state$.pipe(take(1)).subscribe((state) => {
+      if (state.planets.length === 0) {
+        this._renderPlanet();
+      }
+    });
+  }
+
+  _renderPlanet() {
+    this.state$.pipe(take(1)).subscribe(() => {
+      this.appService.setRequest(true);
+      interval(500)
+        .pipe(take(1))
+        .subscribe(() => {
+          this.appService.getPlanets().subscribe((swapiResponse) => {
+            this.appService.setPlanets(swapiResponse.results);
+            this.appService.setPlanetPage(0, {
+              prevPage: !!swapiResponse.previous,
+              nextPage: !!swapiResponse.next,
+            });
+          });
         });
-    }
+    });
   }
 
-  _setRequest() {
-    this.request = this.appServices.state.request;
-  }
-
-  _setPlanets() {
-    this.planets = this.appServices.state.planets;
+  handleSetPage(number: number) {
+    this.appService.setPlanetPage(number);
+    this._renderPlanet();
   }
 }

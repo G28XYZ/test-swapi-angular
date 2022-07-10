@@ -21,4 +21,24 @@ export interface IPerson {
 export interface IState {
   planets: [] | IPlanet[];
   request: boolean;
+  currentPage: number;
+  nextPage: boolean;
+  prevPage: boolean;
+}
+
+export interface ISwapiResponse {
+  count: number;
+  next?: string | string;
+  previous?: null | string;
+  results: IPlanet[] | [];
+}
+
+export interface IStatePlanet {
+  planet: IPlanet | undefined;
+  persons: IPerson[] | [];
+  filteredPersons: IPerson[] | [];
+  request: boolean;
+  gender: string;
+  countPerson: number;
+  showMorePersons: boolean;
 }

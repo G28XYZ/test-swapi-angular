@@ -1,0 +1,31 @@
+.planet-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 50px;
+  box-sizing: border-box;
+  &__list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    &-item {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      flex-wrap: wrap;
+      &_type {
+        &_planet {
+          border-bottom: 1px solid rgba(0, 0, 0, 0.5);
+          span {
+            padding-bottom: 5px;
+          }
+        }
+      }
+    }
+  }
+}

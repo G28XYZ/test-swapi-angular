@@ -1,9 +1,9 @@
 <main class="content">
-  <app-preloader *ngIf="request"></app-preloader>
-  <section *ngIf="planets.length !== 0" class="planet">
-    <ul class="planet__list">
+  <app-preloader *ngIf="(state$ | async)?.request"></app-preloader>
+  <section *ngIf="(state$ | async)?.planets?.length !== 0" class="planet">
+    <ul *ngIf="(state$ | async)?.request === false" class="planet__list">
       <li
-        *ngFor="let planet of planets; let i = index"
+        *ngFor="let planet of (state$ | async)?.planets; let i = index"
         class="planet__list-item card"
         data-title="Кликните чтобы узнать подробнее"
       >
@@ -18,5 +18,24 @@
         </a>
       </li>
     </ul>
+    <div *ngIf="(state$ | async)?.request === false" class="planet__buttons">
+      <button
+        *ngIf="(state$ | async)?.prevPage"
+        (click)="handleSetPage(-1)"
+        class="planet__button planet__button_type_prev"
+      >
+        <div></div>
+      </button>
+      <p class="planet__current-page title">
+        {{ (state$ | async)?.currentPage }}
+      </p>
+      <button
+        *ngIf="(state$ | async)?.nextPage"
+        (click)="handleSetPage(1)"
+        class="planet__button planet__button_type_next"
+      >
+        <div></div>
+      </button>
+    </div>
   </section>
 </main>

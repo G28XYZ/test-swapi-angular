@@ -1,0 +1,35 @@
+<div class="inputs">
+  <div>
+    <input
+      type="radio"
+      id="all"
+      name="gender"
+      value="all"
+      (change)="changeFilter('all')"
+      [checked]="gender === 'all'"
+    />
+    <label for="all">All</label>
+  </div>
+  <div>
+    <input
+      type="radio"
+      id="male"
+      name="gender"
+      value="male"
+      (change)="changeFilter('male')"
+      [checked]="gender === 'male'"
+    />
+    <label for="male">Male</label>
+  </div>
+  <div>
+    <input
+      type="radio"
+      id="female"
+      name="gender"
+      value="female"
+      (change)="changeFilter('female')"
+      [checked]="gender === 'female'"
+    />
+    <label for="female">Female</label>
+  </div>
+</div>

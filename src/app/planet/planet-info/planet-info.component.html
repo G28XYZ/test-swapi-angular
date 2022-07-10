@@ -1,0 +1,30 @@
+<ul class="planet-info__list text">
+  <li class="planet-info__list-item planet-info__list-item_type_planet">
+    <span> Население: </span>
+    <span>
+      {{ planet?.population }}
+    </span>
+  </li>
+  <li class="planet-info__list-item planet-info__list-item_type_planet">
+    <span> Диаметр: </span>
+    <span> {{ planet?.diameter }} км </span>
+  </li>
+  <li class="planet-info__list-item planet-info__list-item_type_planet">
+    <span> Климат: </span>
+    <span>
+      {{ planet?.climate }}
+    </span>
+  </li>
+  <li class="planet-info__list-item planet-info__list-item_type_planet">
+    <span> Ландшафт: </span>
+    <span> {{ planet?.terrain }}</span>
+  </li>
+  <li class="planet-info__list-item planet-info__list-item_type_planet">
+    <span> Период вращения по орбите: </span>
+    <span> {{ planet?.orbital_period }} д </span>
+  </li>
+  <li class="planet-info__list-item planet-info__list-item_type_planet">
+    <span> Период вращения планеты: </span>
+    <span> {{ planet?.rotation_period }} ч </span>
+  </li>
+</ul>

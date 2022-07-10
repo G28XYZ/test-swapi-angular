@@ -1,73 +1,70 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { IPerson, IPlanet } from 'src/utils/types';
+import { Observable, forkJoin, tap, take } from 'rxjs';
+import { IPerson, IPlanet, IState, IStatePlanet } from 'src/utils/types';
 import { AppService } from '../app.service';
+import { PlanetService } from './planet.service';
 
 @Component({
   selector: 'app-planet',
   templateUrl: './planet.component.html',
   styleUrls: ['./planet.component.scss'],
 })
-export class PlanetComponent {
-  planet_id: string;
-  planets: IPlanet[];
-  planet: IPlanet | undefined;
-  persons: IPerson[] | undefined;
-  filteredPersons: IPerson[] | undefined;
-  request: boolean = true;
-  gender: string = 'all';
-  count: number = 4;
+export class PlanetComponent implements OnInit {
+  globalState$: Observable<IState>;
+  state$: Observable<IStatePlanet>;
 
   constructor(
     private activateRoute: ActivatedRoute,
+    private planetService: PlanetService,
     private appService: AppService,
     private router: Router
   ) {
-    this.planet_id = this.activateRoute.snapshot.params['id'];
-    this.planets = this.appService.state.planets;
-    this.planet = this.planets.find((planet) => planet.id === this.planet_id);
+    this.globalState$ = this.appService.state;
+    this.state$ = this.planetService.state;
   }
 
   ngOnInit(): void {
-    if (this.planet === undefined) {
-      console.log('Ошибка данных о планете');
-      this.router.navigate(['/main']);
-      return;
-    }
-    Promise.all(
-      this.planet.residents.map((personAddress) =>
-        this.appService.getPerson(personAddress)
-      )
-    )
-      .then((data) => {
-        this.persons = data.map(
-          ({ name, mass, gender, height, hair_color, eye_color }) => ({
-            name,
-            mass,
-            gender,
-            height,
-            hair_color,
-            eye_color,
-          })
-        );
-        this.filteredPersons = this.persons;
-      })
-      .catch((err) => console.log(err))
-      .finally(() => (this.request = false));
+    const routePlanetId = this.activateRoute.snapshot.params['id'];
+    this.globalState$.pipe(take(1)).subscribe((globalState) => {
+      const planet = globalState.planets.find(
+        (planet: IPlanet) => planet.id === routePlanetId
+      );
+      this.planetService.setPlanet(planet);
+
+      if (planet === undefined) {
+        console.log('Ошибка данных о планете');
+        this.router.navigate(['/main']);
+        return;
+      }
+
+      if (planet.residents.length > 0) {
+        this.planetService.setRequest(true);
+        forkJoin(
+          planet.residents.map((personAddress) =>
+            this.planetService.getPerson(personAddress)
+          )
+        ).subscribe((personsData) => {
+          this.planetService.setRequest(false);
+          this.planetService.setPerson(personsData);
+        });
+      } else {
+        this.planetService.setRequest(false);
+        this.planetService.setPerson([]);
+      }
+    });
+  }
+
+  ngOnDestroy() {
+    this.planetService.setRequest(false);
+    this.planetService.setPerson([]);
   }
 
   handleChangeGender(gender: string) {
-    this.gender = gender;
-    if (gender === 'all') {
-      this.filteredPersons = this.persons;
-      return;
-    }
-    this.filteredPersons = this.persons?.filter(
-      (person) => person.gender === gender
-    );
+    this.planetService.setGenderFilter(gender);
   }
 
   handleClickMoreCount() {
-    this.count += 2;
+    this.planetService.incCount();
   }
 }
