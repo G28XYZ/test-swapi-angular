@@ -24,6 +24,7 @@ export interface IState {
   currentPage: number;
   nextPage: boolean;
   prevPage: boolean;
+  totalCountPlanets: number;
 }
 
 export interface ISwapiResponse {

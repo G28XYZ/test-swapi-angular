@@ -20,7 +20,9 @@
     </ul>
     <div *ngIf="(state$ | async)?.request === false" class="planet__buttons">
       <button
-        *ngIf="(state$ | async)?.prevPage"
+        *ngIf="
+          (state$ | async)?.prevPage && (state$ | async)?.currentPage !== 1
+        "
         (click)="handleSetPage(-1)"
         class="planet__button planet__button_type_prev"
       >
@@ -30,7 +32,10 @@
         {{ (state$ | async)?.currentPage }}
       </p>
       <button
-        *ngIf="(state$ | async)?.nextPage"
+        *ngIf="
+          (state$ | async)?.nextPage &&
+          (state$ | async)?.totalCountPlanets !== (state$ | async)?.currentPage
+        "
         (click)="handleSetPage(1)"
         class="planet__button planet__button_type_next"
       >

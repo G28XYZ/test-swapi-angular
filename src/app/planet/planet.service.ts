@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, take } from 'rxjs';
-import { IPerson, IPlanet, IState, IStatePlanet } from 'src/utils/types';
+import { IPerson, IPlanet, IStatePlanet } from 'src/utils/types';
 import { HttpClient } from '@angular/common/http';
 
 @Injectable({

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { interval, Observable, take } from 'rxjs';
-import { IPlanet, IState } from 'src/utils/types';
+import { Observable, take } from 'rxjs';
+import { IState } from 'src/utils/types';
 import { AppService } from '../app.service';
 
 @Component({
@@ -25,19 +25,34 @@ export class MainComponent implements OnInit {
   }
 
   _renderPlanet() {
-    this.state$.pipe(take(1)).subscribe(() => {
+    this.state$.pipe(take(1)).subscribe((state) => {
       this.appService.setRequest(true);
-      interval(500)
-        .pipe(take(1))
-        .subscribe(() => {
-          this.appService.getPlanets().subscribe((swapiResponse) => {
-            this.appService.setPlanets(swapiResponse.results);
-            this.appService.setPlanetPage(0, {
-              prevPage: !!swapiResponse.previous,
-              nextPage: !!swapiResponse.next,
-            });
+
+      this.appService.getPlanets().subscribe(
+        (swapiResponse) => {
+          this.appService.setTotalCount(swapiResponse.count);
+          this.appService.setPlanetPage(0, {
+            prevPage: !!swapiResponse.previous,
+            nextPage: !!swapiResponse.next,
           });
-        });
+          this.appService.setPlanets(swapiResponse.results);
+        },
+        (error) => {
+          // если страницы не существует вернуться к ближайшей корректной
+          if (state.currentPage < 1) {
+            this.appService.setPlanetPage(1, {
+              prevPage: false,
+              nextPage: true,
+            });
+          } else {
+            this.appService.setPlanetPage(-1, {
+              prevPage: true,
+              nextPage: false,
+            });
+          }
+          this._renderPlanet();
+        }
+      );
     });
   }
 

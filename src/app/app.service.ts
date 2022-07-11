@@ -2,17 +2,16 @@ import { Injectable } from '@angular/core';
 import { IPlanet, IState, ISwapiResponse } from 'src/utils/types';
 import { generate } from 'shortid';
 import { HttpClient } from '@angular/common/http';
-import { Observable, BehaviorSubject, take, interval } from 'rxjs';
+import { Observable, BehaviorSubject, take } from 'rxjs';
 import { swapiAddress } from 'src/utils/constants';
 @Injectable({
   providedIn: 'root',
 })
 export class AppService {
-  constructor(private _http: HttpClient) {
-    console.log('constructor app');
-  }
+  constructor(private _http: HttpClient) {}
 
   state: BehaviorSubject<IState> = new BehaviorSubject<IState>({
+    totalCountPlanets: 0,
     request: true,
     planets: [],
     currentPage: 1,
@@ -35,6 +34,12 @@ export class AppService {
       this.state.next({ ...state, request });
     });
     this._setLocalStorage();
+  }
+
+  setTotalCount(count: number) {
+    this.state$.pipe(take(1)).subscribe((state) => {
+      this.state.next({ ...state, totalCountPlanets: count / 10 });
+    });
   }
 
   setPlanets(planets: IPlanet[]) {
